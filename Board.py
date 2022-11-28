@@ -1,7 +1,7 @@
 from os import linesep
 
-class Board:
 
+class Board:
     board = []
 
     def create(self) -> None:

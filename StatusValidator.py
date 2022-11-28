@@ -1,4 +1,5 @@
 class StatusValidator:
 
-    def __init__(self):
-        pass
+    @staticmethod
+    def is_winning() -> bool:
+        return False

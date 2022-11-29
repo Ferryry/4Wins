@@ -1,3 +1,5 @@
+import os
+
 from Player import Player
 from Board import Board
 from StatusValidator import StatusValidator
@@ -41,10 +43,20 @@ class MainGame:
         self.player[0].set_symbol(input(f"{self.player[0].get_name()}: set your symbol: "))
         self.player[1].set_symbol(input(f"{self.player[1].get_name()}: set your symbol: "))
 
+        self.player[0].coins = self.player[1].coins = 21
+
         self.board.create()
 
         while not self.validator.is_winning(self.board, self.player):
             self.turn()
+
+        if self.validator.winner is not None:
+            print(f"{self.validator.winner.get_name()} has won!")
+        else:
+            print("Game Over - Nobody has won")
+
+        if str(input("Would you like to restart? (y/n): ")) == "y":
+            self.prepare_game()
 
     def __init__(self):
         self.validator = StatusValidator()

@@ -4,6 +4,9 @@ import Player
 class Board:
     board = []
 
+    def get_board(self) -> list:
+        return self.board
+
     def return_last_empty_slot(self, offset: int) -> int:
         if -1 < offset < 7:
             for index, item in reversed(list(enumerate(self.board))):

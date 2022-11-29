@@ -32,6 +32,8 @@ class MainGame:
             if not return_value:
                 print("Either the slot is full or you have specific a slot, which is bigger than 7 or smaller than 1.")
 
+        self.rounds += 1
+
     def prepare_game(self) -> None:
         self.player[0].set_name(input("Player 1: Enter your Name: "))
         self.player[1].set_name(input("Player 2: Enter your Name: "))
@@ -41,11 +43,11 @@ class MainGame:
 
         self.board.create()
 
-        while not StatusValidator.is_winning(self.board):
+        while not self.validator.is_winning(self.board, self.player):
             self.turn()
-            self.rounds += 1
 
     def __init__(self):
+        self.validator = StatusValidator()
         self.player = [Player(), Player()]
         self.board = Board()
         self.rounds = 1

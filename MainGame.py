@@ -8,7 +8,7 @@ class MainGame:
     def get_username(self, idx) -> str:
         return str(self.player[idx].get_name())
 
-    def insert_coin(self, column_offset: int, player: Player):
+    def insert_coin(self, column_offset: int, player: Player) -> None:
         self.board.board.insert(column_offset, player.get_symbol())
 
     def turn(self):

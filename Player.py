@@ -1,8 +1,5 @@
 class Player:
 
-    name = ''
-    symbol = ''
-
     def set_symbol(self, symbol) -> None:
         self.symbol = symbol
 
@@ -16,4 +13,6 @@ class Player:
         return self.name
 
     def __init__(self):
-        pass
+        self.name = ""
+        self.symbol = ""
+        self.coins = 21

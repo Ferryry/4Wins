@@ -1,18 +1,28 @@
-from os import linesep
-from typing import Optional
+import Player
+
 
 class Board:
     board = []
 
-    def return_last_empty_slot(self, offset: int) -> Optional[int]:
-        for idx, item in enumerate(self.board):
-            if not str(item[offset]) == "0":
-                return idx
-        else:
-            return Optional[None]
+    def return_last_empty_slot(self, offset: int) -> int:
+        if -1 < offset < 7:
+            for index, item in reversed(list(enumerate(self.board))):
+                if str(item[offset]) == "_":
+                    return index
+
+            return -1
+        return -1
+
+    def insert_coin(self, column_offset: int, player: Player) -> bool:
+        offset = self.return_last_empty_slot(column_offset)
+        if offset > -1:
+            self.board[offset][column_offset] = player.get_symbol()
+            player.coins -= 1
+            return True
+        return False
 
     def create(self) -> None:
-        self.board = [[0 for col in range(7)] for row in range(6)]
+        self.board = [["_" for col in range(7)] for row in range(6)]
 
     def show(self):
         for b in self.board:
@@ -24,4 +34,4 @@ class Board:
         print(" -------------------\n 1  2  3  4  5  6  7 ")
 
     def __init__(self):
-        pass
+        self.board = None

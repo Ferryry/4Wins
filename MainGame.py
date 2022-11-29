@@ -8,20 +8,29 @@ class MainGame:
     def get_username(self, idx) -> str:
         return str(self.player[idx].get_name())
 
-    def insert_coin(self, column_offset: int, player: Player) -> None:
-        self.board.board.insert(column_offset, player.get_symbol())
-
     def turn(self):
+        return_value = False
 
-        print(f"Round: {self.rounds}")
-
-        self.board.show()
-        self.insert_coin((int(input("{0} in which slot would you like to insert the coin (1-7): "
-                                    .format(self.player[0].get_name()))) - 1), self.player[0])
+        print(f"Round: {self.rounds} | You both have left {self.player[0].coins} coins!")
 
         self.board.show()
-        self.insert_coin((int(input("{0} in which slot would you like to insert the coin (1-7): "
-                                    .format(self.player[1].get_name()))) - 1), self.player[1])
+        while not return_value:
+            return_value = self.board.insert_coin(
+                (int(input("{0} in which slot would you like to insert the coin (1-7): "
+                           .format(self.get_username(0)))) - 1), self.player[0])
+            if not return_value:
+                print("Either the slot is full or you have specific a slot, which is bigger than 7 or smaller than 1.")
+
+        return_value = False
+
+        self.board.show()
+        while not return_value:
+            return_value = self.board.insert_coin(
+                (int(input("{0} in which slot would you like to insert the coin (1-7): "
+                           .format(self.get_username(1)))) - 1), self.player[1])
+
+            if not return_value:
+                print("Either the slot is full or you have specific a slot, which is bigger than 7 or smaller than 1.")
 
     def prepare_game(self) -> None:
         self.player[0].set_name(input("Player 1: Enter your Name: "))
@@ -32,7 +41,7 @@ class MainGame:
 
         self.board.create()
 
-        while not StatusValidator.is_winning():
+        while not StatusValidator.is_winning(self.board):
             self.turn()
             self.rounds += 1
 

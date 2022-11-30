@@ -7,34 +7,38 @@ from StatusValidator import StatusValidator
 
 class MainGame:
 
-    def get_username(self, idx) -> str:
-        return str(self.player[idx].get_name())
+    def get_username(self, index) -> str:
+        return str(self.player[index].get_name())
 
     def turn(self) -> None:
         return_value = False
 
         print(f"Round: {self.rounds} | You both have left {self.player[0].coins} coins!")
+        question = "{0} in which slot would you like to insert the coin (1-7): "
 
         self.board.show()
         while not return_value:
             try:
-                return_value = self.board.insert_coin(
-                    (int(input("{0} in which slot would you like to insert the coin (1-7): "
-                               .format(self.get_username(0)))) - 1), self.player[0])
-                if not return_value:
-                    print("Either the slot is full or you have specific a slot, which is bigger than 7 or smaller than 1.")
+                slot_input = input(question.format(self.get_username(0)))
+                slot_input = int(slot_input)
+                return_value = self.board.insert_coin(slot_input, self.player[0])
             except:
-                print("Please enter a valid slot number from 1 to 7.")
-                return_value = False
+                print("{} is not a valid slot".format(slot_input))
+
+            if not return_value:
+                print("Either the slot is full or you have specific a slot, which is bigger than 7 or smaller than 1.")
 
         self.validator.is_winning(self.board, self.player)
         return_value = False
 
         self.board.show()
         while not return_value:
-            return_value = self.board.insert_coin(
-                (int(input("{0} in which slot would you like to insert the coin (1-7): "
-                           .format(self.get_username(1)))) - 1), self.player[1])
+            try:
+                slot_input = input(question.format(self.get_username(1)))
+                slot_input = int(slot_input)
+                return_value = self.board.insert_coin(slot_input, self.player[1])
+            except:
+                print("{} is not a valid slot".format(slot_input))
 
             if not return_value:
                 print("Either the slot is full or you have specific a slot, which is bigger than 7 or smaller than 1.")

@@ -10,7 +10,7 @@ class MainGame:
     def get_username(self, idx) -> str:
         return str(self.player[idx].get_name())
 
-    def turn(self):
+    def turn(self) -> None:
         return_value = False
 
         print(f"Round: {self.rounds} | You both have left {self.player[0].coins} coins!")
@@ -23,7 +23,9 @@ class MainGame:
             if not return_value:
                 print("Either the slot is full or you have specific a slot, which is bigger than 7 or smaller than 1.")
 
+        self.validator.is_winning(self.board, self.player)
         return_value = False
+
 
         self.board.show()
         while not return_value:
@@ -34,6 +36,7 @@ class MainGame:
             if not return_value:
                 print("Either the slot is full or you have specific a slot, which is bigger than 7 or smaller than 1.")
 
+        self.validator.is_winning(self.board, self.player)
         self.rounds += 1
 
     def prepare_game(self) -> None:
@@ -47,7 +50,7 @@ class MainGame:
 
         self.board.create()
 
-        while not self.validator.is_winning(self.board, self.player):
+        while not self.validator.gameover:
             self.turn()
 
         if self.validator.winner is not None:

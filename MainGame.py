@@ -22,8 +22,7 @@ class MainGame:
                     (int(input("{0} in which slot would you like to insert the coin (1-7): "
                                .format(self.get_username(0)))) - 1), self.player[0])
                 if not return_value:
-                    print(
-                        "Either the slot is full or you have specific a slot, which is bigger than 7 or smaller than 1.")
+                    print("Either the slot is full or you have specific a slot, which is bigger than 7 or smaller than 1.")
             except:
                 print("Please enter a valid slot number from 1 to 7.")
                 return_value = False

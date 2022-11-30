@@ -47,10 +47,22 @@ class MainGame:
         self.rounds += 1
 
     def prepare_game(self) -> None:
-        self.player[0].set_name(input("Player 1: Enter your Name: "))
-        self.player[1].set_name(input("Player 2: Enter your Name: "))
+        name = ""
+        while len(name) == 0 and name is not None:
+            name = input("Player 1: Enter your Name: ")
+            if len(name) == 0:
+                print("Please specify a name")
+        self.player[0].set_name(name)
+
+        name = ""
+        while len(name) == 0 and name is not None:
+            name = input("Player 2: Enter your Name: ")
+            if len(name) == 0:
+                print("Please specify a name")
+        self.player[1].set_name(name)
+
         self.player[0].set_symbol("X")
-        self.player[0].set_symbol("O")
+        self.player[1].set_symbol("O")
         self.player[0].coins = self.player[1].coins = 21
 
         self.board.create()

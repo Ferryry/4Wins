@@ -42,10 +42,8 @@ class MainGame:
     def prepare_game(self) -> None:
         self.player[0].set_name(input("Player 1: Enter your Name: "))
         self.player[1].set_name(input("Player 2: Enter your Name: "))
-
-        self.player[0].set_symbol(input(f"{self.player[0].get_name()}: set your symbol: "))
-        self.player[1].set_symbol(input(f"{self.player[1].get_name()}: set your symbol: "))
-
+        self.player[0].set_symbol("X")
+        self.player[0].set_symbol("O")
         self.player[0].coins = self.player[1].coins = 21
 
         self.board.create()
